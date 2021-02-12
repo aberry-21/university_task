@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spo.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 11:45:29 by olebedev          #+#    #+#             */
-/*   Updated: 2021/02/11 00:22:26 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/11 14:48:33 by olebedev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,52 @@ char	*ft_strjoin(char const *str_1, char const *str_2)
 	return (result);
 }
 
+int		ft_find_index(char ch, char *alpha)
+{
+	int		i;
+
+	i = 0;
+	while (alpha[i])
+	{
+		if (ch == alpha[i])
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int		ft_get_addition(char ch, char *alpha, int base)
+{
+	int		i;
+
+	i = 0;
+	if ((int)ch > base)
+		ch -= base;
+	while (alpha[i])
+	{
+		if (ch == alpha[i])
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int		ft_get_remainder(char ch, char *alpha, int base)
+{
+	int		i;
+
+	i = 0;
+	if ((int)ch > base)
+		ch -= base;
+	while (alpha[i])
+	{
+		if (ch == alpha[i])
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
 char	*ft_addition(char *first_term, char *second_term, int base, char *alpha)
 {
 	char	arr[32 + 1];
@@ -71,6 +117,8 @@ char	*ft_addition(char *first_term, char *second_term, int base, char *alpha)
 
 	counter = 0;
 	bzero(arr, 33);
+	printf("%s\n", first_term);
+	printf("%s\n", second_term);
 	while (first_term[counter] && second_term[counter])
 	{
 		addition = (first_term[counter] - '0') + (second_term[counter] - '0');
@@ -81,11 +129,13 @@ char	*ft_addition(char *first_term, char *second_term, int base, char *alpha)
 		arr[counter] = addition + '0';
 		counter++;
 	}
+	printf("%s\n", arr);
 	remainder = 0;
 	counter--;
 	while (counter > -1)
 	{
-		addition = alpha[((arr[counter] - '0' + remainder) % base)];
+		addition = alpha[ft_get_addition(arr[counter] - '0' + remainder, alpha, base)];
+		printf("%d\n", arr[counter] - '0' + remainder);
 		remainder = ((arr[counter] - '0' + remainder) / base);
 		arr[counter] = addition;
 		counter--;
@@ -135,7 +185,7 @@ char	*ft_itoa_base(long num, int base, char *alpha)
 		num /= base;
 	}
 	arr[32] = '\0';
-	printf("%s\n", arr);
+	// printf("%s\n", arr);
 	return (strdup(arr));
 }
 
@@ -237,21 +287,6 @@ void	ft_print(char *name, t_bin_elem *content)
 	printf("%s\n", content->direct_code_bin);
 }
 
-
-int		ft_find_index(char ch, char *alpha)
-{
-	int		i;
-
-	i = 0;
-	while (alpha[i])
-	{
-		if (ch == alpha[i])
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
 char	*ft_difference_hex(char *first_term, char *second_term, char *alpha)
 {
 	char	arr[32 + 1];
@@ -346,20 +381,14 @@ int						ft_choose_sign(int first, int second)
 	int			flag;
 
 	flag = 0;
+	if (abs(second) == abs(first))
+		return (flag);
 	if (second < 0)
 		flag = 1;
-	// if (flag)
-	// {
-		if (second > first)
-			return (flag);
-		else
-			return (!flag);
-	// }
-	// else
-	// {
-
-	// }
-	
+	if (abs(second) > abs(first))
+		return (flag);
+	else
+		return (!flag);
 }
 
 char					*ft_sum_hex(t_conversion_hex_elem *first_elem, t_conversion_hex_elem *second_elem)
@@ -374,10 +403,42 @@ char					*ft_sum_hex(t_conversion_hex_elem *first_elem, t_conversion_hex_elem *s
 	}
 	else if (first_elem->num->origin_number < 0 || second_elem->num->origin_number < 0)
 	{
-		add = ft_difference_hex(first_elem->num->unsigned_hex, second_elem->num->unsigned_hex, HEX);
+		if (abs(first_elem->num->origin_number) > abs(second_elem->num->origin_number))
+			add = ft_difference_hex(first_elem->num->unsigned_hex, second_elem->num->unsigned_hex, HEX);
+		else
+			add = ft_difference_hex(second_elem->num->unsigned_hex, first_elem->num->unsigned_hex, HEX);
+		if(ft_choose_sign(first_elem->num->origin_number, second_elem->num->origin_number))
+			add[0] = '1';
 	}
 	else
 		add = ft_addition(first_elem->num->direct_code_hex, second_elem->num->direct_code_hex, 16, HEX);
+	tmp = add;
+	add = ft_createstr_hex(add);
+	free(tmp);
+	return(add);
+}
+
+char					*ft_create_conversion_hex_content(t_hex_elem *first_elem, t_hex_elem *second_elem, int num_1, int num_2)
+{
+	char		*add;
+	char		*tmp;
+
+	if (num_1 < 0 && num_2 < 0)
+	{
+		add = ft_addition(first_elem->direct_code_hex, second_elem->direct_code_hex, 16, HEX);
+		add[0] = '1';
+	}
+	else if (num_1 < 0 || num_2 < 0)
+	{
+		if (abs(first_elem->origin_number) > abs(second_elem->origin_number))
+			add = ft_difference_hex(first_elem->unsigned_hex, second_elem->unsigned_hex, HEX);
+		else
+			add = ft_difference_hex(second_elem->unsigned_hex, first_elem->unsigned_hex, HEX);
+		if(ft_choose_sign(first_elem->origin_number, second_elem->origin_number))
+			add[0] = '1';
+	}
+	else
+		add = ft_addition(first_elem->direct_code_hex, second_elem->direct_code_hex, 16, HEX);
 	tmp = add;
 	add = ft_createstr_hex(add);
 	free(tmp);
@@ -390,8 +451,12 @@ t_conversion_hex		*ft_conversion_hex_new(t_conversion_hex_elem *first_elem, t_co
 
 	if (!(conversion_hex = (t_conversion_hex *)malloc(sizeof(t_conversion_hex))))
 		exit (1);
-	conversion_hex->sum = ft_sum_hex(first_elem, second_elem);
+	conversion_hex->sum = ft_create_conversion_hex_content(first_elem->num, second_elem->num, first_elem->num->origin_number, second_elem->num->origin_number);
+	conversion_hex->first_difference = ft_create_conversion_hex_content(first_elem->num, second_elem->inversion_num, first_elem->num->origin_number, -second_elem->num->origin_number);
+	conversion_hex->second_difference = ft_create_conversion_hex_content(first_elem->inversion_num, second_elem->num, -first_elem->num->origin_number, second_elem->num->origin_number);
 	printf("%s\n", conversion_hex->sum);
+	printf("%s\n", conversion_hex->first_difference);
+	printf("%s\n", conversion_hex->second_difference);
 	return (conversion_hex);
 }
 
@@ -414,13 +479,13 @@ int		main(int argc, char const *argv[])
 	scanf("%ld", &number_1);
 	printf("Введите второе число в пределах int:");
 	scanf("%ld", &number_2);
-	// printf("Введите систему счисления (2 или 16): ");
-	// scanf("%d", &base);
+	printf("Введите систему счисления (2 или 16): ");
+	scanf("%d", &base);
 	// ft_check_value(base, number_1, number_2);
 	// if (base == 2)
 	// {
-	// 	first_elem = ft_conversion_bin_elem_new(number_1, base);
-	// 	second_elem = ft_conversion_bin_elem_new(number_2, base);
+	// 	first_elem = ft_conversion_bin_elem_new(number_1);
+	// 	second_elem = ft_conversion_bin_elem_new(number_2);
 	// 	conversion_bin = ft_conversion_bin_new(first_elem, second_elem);
 	// 	ft_print("SUM", conversion_bin->sum);
 	// 	ft_print("FDIF", conversion_bin->first_difference);
@@ -432,10 +497,17 @@ int		main(int argc, char const *argv[])
 
 		first_elem = ft_conversion_hex_elem_new(number_1);
 		second_elem = ft_conversion_hex_elem_new(number_2);
+		printf("%s\n", first_elem->num->str_hex);
+		printf("%s\n", second_elem->num->str_hex);
 		conversion_hex = ft_conversion_hex_new(first_elem, second_elem);
 
 
 	// printf("%ld\n", number_1);
+	// printf("%d\n", ft_choose_sign(19, -13));
 	// printf("%ld\n", number_2);
 	return 0;
 }
+
+
+//614    == 1556
+//1FE0     == 8160
