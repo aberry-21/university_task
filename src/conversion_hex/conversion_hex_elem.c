@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:48:13 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 23:05:53 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:40 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void					ft_conversion_hex_elem_destructor(t_conversion_hex_elem *conversion_hex
 	{
 		ft_hex_elem_destructor(conversion_hex_elem->inversion_num);
 		ft_hex_elem_destructor(conversion_hex_elem->num);
+		free(conversion_hex_elem);
 	}
 	conversion_hex_elem = (t_conversion_hex_elem *)NULL;
 }

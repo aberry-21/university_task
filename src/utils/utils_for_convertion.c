@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 21:02:53 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 22:58:33 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:46 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_itoa_base(long num, int base, char *alpha)
 {
 	char	arr[32 + 1];
 	int		counter_arr;
-	int		positive;
 
 	memset(arr, '0', 33);
 	if (num < 0)

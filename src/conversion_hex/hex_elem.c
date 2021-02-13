@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:45:24 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 22:48:00 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:43 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			ft_hex_elem_destructor(t_hex_elem *hex_elem)
 		free(hex_elem->direct_code_hex);
 		free(hex_elem->unsigned_hex);
 		free(hex_elem->str_hex);
+		free(hex_elem);
 	}
 	hex_elem = (t_hex_elem *)NULL;
 }
@@ -26,7 +27,6 @@ void			ft_hex_elem_destructor(t_hex_elem *hex_elem)
 t_hex_elem		*ft_hex_elem_new(long number)
 {
 	t_hex_elem		*hex_elem;
-	char			*tmp;
 
 	if (!(hex_elem = (t_hex_elem *)malloc(sizeof(t_hex_elem))))
 		exit (1);

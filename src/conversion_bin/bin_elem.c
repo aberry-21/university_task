@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:29:06 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 23:09:40 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:31 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void			ft_bin_elem_destructor(t_bin_elem *bin_elem)
 		free(bin_elem->unsigned_bin);
 		free(bin_elem->reverse_bin);
 		free(bin_elem->additional_bin);
+		free(bin_elem);
 	}
 	bin_elem = (t_bin_elem *)NULL;
 }
@@ -65,7 +66,7 @@ t_bin_elem		*ft_bin_new(long number)
 	}
 	else
 	{
-		bin_elem->direct_code_bin = tmp;
+		bin_elem->direct_code_bin = ft_itoa_base(number, 2, BIN);
 		bin_elem->unsigned_bin = ft_itoa_base(labs(number), 2, BIN);
 		bin_elem->reverse_bin = ft_inversion_bin(bin_elem->unsigned_bin);
 		bin_elem->additional_bin = ft_additional_code_bin(bin_elem->unsigned_bin);

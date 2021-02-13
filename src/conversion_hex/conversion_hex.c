@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:43:22 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 23:06:33 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:42 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char			*ft_create_conversion_hex_content(t_hex_elem *first_elem, t_hex_el
 	}
 	else if (num_1 < 0 || num_2 < 0)
 	{
-		if (abs(first_elem->origin_number) > abs(second_elem->origin_number))
+		if (labs(first_elem->origin_number) > labs(second_elem->origin_number))
 			add = ft_difference_hex(first_elem->unsigned_hex, second_elem->unsigned_hex, HEX);
 		else
 			add = ft_difference_hex(second_elem->unsigned_hex, first_elem->unsigned_hex, HEX);
@@ -34,7 +34,7 @@ static char			*ft_create_conversion_hex_content(t_hex_elem *first_elem, t_hex_el
 	else
 		add = ft_addition(first_elem->direct_code_hex, second_elem->direct_code_hex, 16, HEX);
 	tmp = add;
-	add = ft_createstr_hex(add);
+	add = ft_create_str_hex(add);
 	free(tmp);
 	return(add);
 }
@@ -46,6 +46,7 @@ void					ft_conversion_hex_destructor(t_conversion_hex *conversion_hex)
 		free(conversion_hex->first_difference);
 		free(conversion_hex->second_difference);
 		free(conversion_hex->sum);
+		free(conversion_hex);
 	}
 	conversion_hex = (t_conversion_hex *)NULL;
 }

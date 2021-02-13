@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:17:40 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 23:07:08 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:45 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ char		*ft_create_str_hex(char *str)
 	return (ft_strjoin(add, str));
 }
 
-static int		ft_choose_sign(int first, int second)
+int		ft_choose_sign(int first, int second)
 {
 	int			flag;
 
 	flag = 0;
-	if (abs(second) == abs(first))
+	if (labs(second) == labs(first))
 		return (flag);
 	if (second < 0)
 		flag = 1;
-	if (abs(second) > abs(first))
+	if (labs(second) > labs(first))
 		return (flag);
 	else
 		return (!flag);
@@ -58,7 +58,6 @@ char			*ft_addition(char *first_term, char *second_term, int base, char *alpha)
 	int		sum_array[32];
 	char	array[32 + 1];
 	int		counter;
-	char	addition;
 	int		remainder;
 
 	counter = 0;
@@ -119,7 +118,7 @@ char		*ft_sum_hex(t_conversion_hex_elem *first_elem, t_conversion_hex_elem *seco
 	}
 	else if (first_elem->num->origin_number < 0 || second_elem->num->origin_number < 0)
 	{
-		if (abs(first_elem->num->origin_number) > abs(second_elem->num->origin_number))
+		if (labs(first_elem->num->origin_number) > labs(second_elem->num->origin_number))
 			add = ft_difference_hex(first_elem->num->unsigned_hex, second_elem->num->unsigned_hex, HEX);
 		else
 			add = ft_difference_hex(second_elem->num->unsigned_hex, first_elem->num->unsigned_hex, HEX);

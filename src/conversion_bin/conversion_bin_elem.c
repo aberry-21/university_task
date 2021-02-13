@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:42:18 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/12 23:02:01 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:13:33 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void					ft_conversion_bin_elem_destructor(t_conversion_bin_elem *conversion_bin
 	{
 		ft_bin_elem_destructor(conversion_bin_elem->num);
 		ft_bin_elem_destructor(conversion_bin_elem->inversion_num);
+		free(conversion_bin_elem);
 	}
 	conversion_bin_elem = (t_conversion_bin_elem *)NULL;
 }
