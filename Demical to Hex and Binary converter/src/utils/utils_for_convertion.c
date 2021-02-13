@@ -6,11 +6,38 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 21:02:53 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/13 03:13:46 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:38:22 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversion.h"
+
+char		*ft_create_str_hex(char *str)
+{
+	char	add[2];
+
+	add[1] = '\0';
+	add[0] = (str[0] == '1') ? '-' : '\0' ;
+	str++;
+	while (*str == '0')
+		str++;
+	return (ft_strjoin(add, str));
+}
+
+int		ft_choose_sign(int first, int second)
+{
+	int			flag;
+
+	flag = 0;
+	if (labs(second) == labs(first))
+		return (flag);
+	if (second < 0)
+		flag = 1;
+	if (labs(second) > labs(first))
+		return (flag);
+	else
+		return (!flag);
+}
 
 char	*ft_itoa_base(long num, int base, char *alpha)
 {

@@ -6,7 +6,7 @@
 #    By: aberry <aberry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/13 03:13:54 by aberry            #+#    #+#              #
-#    Updated: 2021/02/13 03:13:56 by aberry           ###   ########.fr        #
+#    Updated: 2021/02/13 03:27:23 by aberry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INC			=	-I ./includes/
 
 ADD_FLAGS	=	-Wall -Wextra -Werror
 
-CFLAGS		=	-O3 -MMD $(INC) $(ADD_FLAGS)
+CFLAGS		=	-O3 -MMD $(INC) $(ADD_FLA GS)
 
 FILES		= 	$(addprefix src/,\
 					conversion.c\
