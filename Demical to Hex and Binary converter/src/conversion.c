@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/09 11:45:29 by olebedev          #+#    #+#             */
-/*   Updated: 2021/02/13 03:38:41 by aberry           ###   ########.fr       */
+/*   Created: 2021/02/09 11:45:29 by aberry            #+#    #+#             */
+/*   Updated: 2021/02/13 03:40:53 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "conversion.h"
 #include <unistd.h>
 
-void	ft_check_value(long number_1, long number_2)
+static void	ft_check_value(long number_1, long number_2)
 {
 	if (number_1 > INT_MAX || number_1 < INT_MIN\
 		|| number_2 > INT_MAX || number_2 < INT_MIN)
@@ -27,7 +27,7 @@ void	ft_check_value(long number_1, long number_2)
 		printf("Разность чисел меньше -2147483648, произойдет переполнение, которое вызовет неопределенное поведение!\n");
 }
 
-int		main(int argc, char const *argv[])
+int			main(int argc, char const *argv[])
 {
 	long				number_1;
 	long				number_2;
