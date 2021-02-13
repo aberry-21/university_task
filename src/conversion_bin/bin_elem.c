@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:29:06 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/13 03:13:31 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:21:26 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char		*ft_inversion_bin(char *bin)
 	return (inv_bin);
 }
 
-static char		*ft_additional_code_bin(char *bin)
+static char		*ft_complement_code_bin(char *bin)
 {
 	char		*inv_bin;
 	char		*tmp;
@@ -41,8 +41,8 @@ void			ft_bin_elem_destructor(t_bin_elem *bin_elem)
 	{
 		free(bin_elem->direct_code_bin);
 		free(bin_elem->unsigned_bin);
-		free(bin_elem->reverse_bin);
-		free(bin_elem->additional_bin);
+		free(bin_elem->inverse_bin);
+		free(bin_elem->complement_bin);
 		free(bin_elem);
 	}
 	bin_elem = (t_bin_elem *)NULL;
@@ -61,15 +61,15 @@ t_bin_elem		*ft_bin_new(long number)
 	{
 		bin_elem->direct_code_bin = strdup(tmp);
 		bin_elem->unsigned_bin = strdup(tmp);
-		bin_elem->reverse_bin = strdup(tmp);
-		bin_elem->additional_bin = strdup(tmp);
+		bin_elem->inverse_bin = strdup(tmp);
+		bin_elem->complement_bin = strdup(tmp);
 	}
 	else
 	{
 		bin_elem->direct_code_bin = ft_itoa_base(number, 2, BIN);
 		bin_elem->unsigned_bin = ft_itoa_base(labs(number), 2, BIN);
-		bin_elem->reverse_bin = ft_inversion_bin(bin_elem->unsigned_bin);
-		bin_elem->additional_bin = ft_additional_code_bin(bin_elem->unsigned_bin);
+		bin_elem->inverse_bin = ft_inversion_bin(bin_elem->unsigned_bin);
+		bin_elem->complement_bin = ft_complement_code_bin(bin_elem->unsigned_bin);
 	}
 	free(tmp);
 	return (bin_elem);

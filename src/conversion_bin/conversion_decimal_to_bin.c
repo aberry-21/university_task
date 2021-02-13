@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:42:18 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/13 03:13:37 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:21:26 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_print_bin(char *text_message, t_bin_elem *content)
 {
 	printf("%s", text_message);
 	printf("%ld\n", content->origin_number);
-	printf("Дополнительный код равен: \t%s\n", content->additional_bin);
-	printf("Обратный код равен:\t\t%s\n", content->reverse_bin);
+	printf("Дополнительный код равен: \t%s\n", content->complement_bin);
+	printf("Обратный код равен:\t\t%s\n", content->inverse_bin);
 	printf("Прямой код равен:\t\t%s\n\n", content->direct_code_bin);
 }
 

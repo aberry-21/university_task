@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 21:20:07 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/13 03:13:28 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/13 03:21:26 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct			s_bin_elem
 	long				origin_number;
 	char				*unsigned_bin;
 	char				*direct_code_bin;
-	char				*reverse_bin;
-	char				*additional_bin;
+	char				*inverse_bin;
+	char				*complement_bin;
 }						t_bin_elem;
 
 typedef struct			s_conversion_bin_elem
